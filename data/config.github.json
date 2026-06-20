@@ -144,6 +144,12 @@
   "webhook": {
     "enabled": true,
     "url_env": "FEISHU_WEBHOOK_URL",
+    "request_body": {
+      "msg_type": "text",
+      "content": {
+        "text": "#{summary}"
+      }
+    },
     "delivery": "summary",
     "overview_position": "first",
     "platform": "feishu",
