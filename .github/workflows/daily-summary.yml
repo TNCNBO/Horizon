@@ -2,7 +2,7 @@ name: Daily Horizon Summary
 
 on:
   schedule:
-    - cron: '0 0 * * *'       # 每天北京时间早 8 点
+    - cron: '0 10 * * *'       # 每天北京时间早 10 点
       timezone: 'Asia/Shanghai'
   workflow_dispatch:            # 也可手动触发
 
