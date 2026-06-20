@@ -9,7 +9,8 @@
     "max_tokens": 4096,
     "throttle_sec": 1,
     "analysis_concurrency": 2,
-    "enrichment_concurrency": 1
+    "enrichment_concurrency": 1,
+    "languages": ["en", "zh"]
   },
   "sources": {
     "hackernews": {
@@ -148,6 +149,6 @@
     "platform": "feishu",
     "layout": "markdown",
     "fallback_layout": "markdown",
-    "languages": null
+    "languages": ["en", "zh"]
   }
 }
