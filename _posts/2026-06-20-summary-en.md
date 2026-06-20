@@ -5,126 +5,147 @@ date: 2026-06-20
 lang: en
 ---
 
-> From 69 items, 12 important content pieces were selected
+> From 67 items, 10 important content pieces were selected
 
 ---
 
-1. [ATProto Has No Mastodon-Style Instances](#item-1) ⭐️ 7.0/10
-2. [Queueing economics of load-balanced systems](#item-2) ⭐️ 7.0/10
-3. [Norway restricts AI in primary schools.](#item-3) ⭐️ 7.0/10
-4. [John Jumper joins Anthropic](#item-4) ⭐️ 7.0/10
-5. [Spring Boot 4.1 adds gRPC, SSRF protection, and Kotlin 2.3](#item-5) ⭐️ 7.0/10
-6. [Satellite data shows widespread GPS tampering.](#item-6) ⭐️ 7.0/10
-7. [AUR attacks expose package trust risks](#item-7) ⭐️ 7.0/10
-8. [GLM-5.2 tops open-weights AI index.](#item-8) ⭐️ 7.0/10
-9. [QUEST-35B Opens Deep Research Training](#item-9) ⭐️ 7.0/10
-10. [Kent Beck reframes engineering work.](#item-10) ⭐️ 6.5/10
-11. [Local AI agents get a June 2026 megathread.](#item-11) ⭐️ 6.0/10
-12. [Local agents gain self-hosted web access.](#item-12) ⭐️ 6.0/10
+1. [ATProto does not have Mastodon-style instances](#item-1) ⭐️ 7.0/10
+2. [Queueing theory explains load-balancing costs](#item-2) ⭐️ 7.0/10
+3. [Norway restricts AI in elementary schools.](#item-3) ⭐️ 7.0/10
+4. [John Jumper is joining Anthropic.](#item-4) ⭐️ 7.0/10
+5. [Court records should be free.](#item-5) ⭐️ 7.0/10
+6. [Spring Boot 4.1 expands gRPC and security support.](#item-6) ⭐️ 7.0/10
+7. [Satellites expose widespread GPS tampering.](#item-7) ⭐️ 7.0/10
+8. [AUR attacks expose Linux package trust risks.](#item-8) ⭐️ 7.0/10
+9. [A tiny torch.compile reimplementation explains operator fusion.](#item-9) ⭐️ 6.0/10
+10. [Headroom compresses LLM context.](#item-10) ⭐️ 6.0/10
 
 ---
 
 <a id="item-1"></a>
-## [ATProto Has No Mastodon-Style Instances](https://overreacted.io/there-are-no-instances-in-atproto/) ⭐️ 7.0/10
+## [ATProto does not have Mastodon-style instances](https://overreacted.io/there-are-no-instances-in-atproto/) ⭐️ 7.0/10
 
-Dan Abramov’s article argues that asking for “Bluesky instances” misunderstands ATProto, because the protocol splits responsibilities among Personal Data Servers, relays, and AppViews rather than packaging them into Mastodon-like instances. The distinction matters because ATProto and ActivityPub make different protocol-design tradeoffs around identity, data hosting, indexing, moderation, and application experience. Understanding those roles helps developers and users evaluate decentralization claims without assuming every federated social network must look like Mastodon. In ATProto, a user’s account data is stored on a Personal Data Server, relays aggregate and distribute repository events at scale, and AppViews index and present data for specific applications such as Bluesky. A key caveat raised by critics is that relays can be expensive and operationally centralizing, so separating roles does not automatically eliminate concentration of power.
+Dan Abramov published an explainer arguing that asking for “Bluesky instances” is a category error because ATProto is organized around PDSes, Relays, and AppViews rather than Mastodon-style instances. The piece reframes Bluesky decentralization as separation of infrastructure roles instead of communities hosted on interchangeable servers. This matters because many debates about Bluesky judge it through the ActivityPub and Mastodon model, where an instance combines identity, hosting, moderation, and federation. ATProto’s design implies different tradeoffs for portability, scaling, moderation, and centralization risk, so using the wrong mental model can obscure both its strengths and its unresolved weaknesses. In ATProto, users publish data to a Personal Data Server, Relays aggregate updates into a firehose, and AppViews consume that stream to build user-facing applications such as timelines and search. A key caveat is that Relays are operationally important and have historically raised cost and centralization concerns, even though commenters noted that protocol changes such as Sync 1.1 made non-archiving Relays cheaper to run.
 
 hackernews · Hacker News 热门 · Jun 19, 15:10 · [Discussion](https://news.ycombinator.com/item?id=48599515)
 
-**Background**: Mastodon is built on ActivityPub, where independently operated servers, often called instances, host users and federate with one another. ATProto instead describes a federated architecture in which account data is hosted on servers, while other services can separately handle discovery, indexing, and application-specific views. ATProto also uses decentralized identifiers and domain-style handles so identity can be separated from a particular hosting server.
+**Background**: Mastodon is commonly discussed in terms of “instances,” where each server is both a home for user accounts and a participant in the wider federated network. ATProto instead splits responsibilities across different service types: a PDS stores user account data, Relays crawl or aggregate PDS updates, and AppViews provide application-specific views and user interfaces. This separation is meant to let different parts of the network scale and be governed independently, but it also means Bluesky does not map cleanly onto the familiar Mastodon question of “which instance are you on?”
 
 <details><summary>References</summary>
 <ul>
-<li><a href="https://atproto.com/guides/overview">Protocol Overview - AT Protocol</a></li>
-<li><a href="https://atproto.com/guides/identity">Identity - AT Protocol</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Mastodon_(social_network)">Mastodon (social network) - Wikipedia</a></li>
+<li><a href="https://getskyscraper.com/blog/atprotocol-federation-architecture-guide">ATProtocol Federation Architecture : PDS , Relay , AppView & How...</a></li>
+<li><a href="https://github.com/bluesky-social/pds">GitHub - bluesky-social/pds: Bluesky PDS (Personal Data Server) container image, compose file, and documentation · GitHub</a></li>
+<li><a href="https://news.ycombinator.com/item?id=45077986">I suspect that the cost of running AT proto servers/ relays is prohibitive...</a></li>
 
 </ul>
 </details>
 
-**Discussion**: The Hacker News discussion was substantive but skeptical in places: some commenters felt the article attacked a straw-man notion of “instances” or used a weak RSS analogy. Others praised the separation of PDSes, relays, and AppViews as an elegant systems design, while raising concerns that relay cost, moderation, and defederation-like governance problems remain unresolved.
+**Discussion**: The Hacker News discussion was mixed: several commenters appreciated the architectural clarification, especially the separation between PDSes, Relays, and AppViews. Others argued that the article’s RSS analogy was weak, that Relays remain a central and costly dependency, and that the piece did not fully answer how ATProto solves social and moderation problems that Mastodon instances address through defederation and local governance.
 
-**Tags**: `#ATProto`, `#Bluesky`, `#decentralized-social`, `#ActivityPub`, `#protocol-design`
+**Tags**: `#ATProto`, `#decentralized-social`, `#Bluesky`, `#protocol-design`, `#ActivityPub`
 
 ---
 
 <a id="item-2"></a>
-## [Queueing economics of load-balanced systems](https://brooker.co.za/blog/2020/08/06/erlang.html) ⭐️ 7.0/10
+## [Queueing theory explains load-balancing costs](https://brooker.co.za/blog/2020/08/06/erlang.html) ⭐️ 7.0/10
 
-Marc Brooker’s article revisits load-balanced systems through the M/M/c, or Erlang-C, queueing model to show how utilization, latency, and provisioning costs interact in unintuitive ways. It argues that pushing a fleet toward high utilization can sharply increase waiting time even when the average service capacity appears sufficient. This matters for engineers doing capacity planning because small changes in headroom can have large effects on tail latency and user-visible performance. It also frames over-provisioning not merely as waste, but as an economically rational way to buy lower latency and resilience against variability. The model assumes Poisson arrivals, exponentially distributed service times, a shared queue, and c backend servers, which are useful abstractions but not a full description of production traffic. Real systems may differ because of heavy-tailed service times, correlated bursts, retries, timeouts, seasonality, and finite queues.
+Marc Brooker’s article revisits the economics of load-balanced systems using queueing theory, focusing on how utilization and service-time variability can sharply increase latency and required capacity. The key point is that even evenly distributed traffic can produce surprising tail delays when queues form behind slow requests. This matters for engineers doing capacity planning, reliability work, and performance tuning because average load can be a misleading guide to real user-facing latency. It also explains why highly utilized systems often need over-provisioning or autoscaling headroom, especially in cloud environments. The model discussed by commenters assumes Poisson arrivals, exponential service times, and an infinite queue, which makes it mathematically tractable but simplified. Several commenters noted that real systems often have correlated bursts, retries, seasonality, and heavy-tailed service-time distributions that can make tail latency worse than the basic model predicts.
 
 hackernews · Hacker News 热门 · Jun 19, 20:30 · [Discussion](https://news.ycombinator.com/item?id=48602918)
 
-**Background**: Queueing theory studies systems where work arrives, waits, and is processed by one or more servers. An M/M/c queue is a standard multi-server model in which arrivals are memoryless, service times are memoryless, and c servers handle jobs from a queue. In such models, latency often grows nonlinearly as utilization rises, which is why systems that look only moderately busier can suddenly feel much slower. Capacity planning in distributed systems is the practice of estimating compute, storage, and network resources needed to meet performance or SLA targets without excessive cost.
+**Background**: Queueing theory studies systems where work arrives, waits, and is served, such as web requests handled by a fleet of servers. Utilization is the fraction of available service capacity being used, and queueing models generally show that latency grows rapidly as utilization approaches full capacity. Service-time variance also matters: if some requests take much longer than others, later requests can wait behind slow ones even when the average service time looks acceptable.
 
 <details><summary>References</summary>
 <ul>
-<li><a href="https://brooker.co.za/blog/2020/08/06/erlang.html">Surprising Economics of Load-Balanced Systems - Marc's Blog</a></li>
-<li><a href="https://en.wikipedia.org/wiki/M/M/c_queue">M/M/c queue - Wikipedia</a></li>
-<li><a href="https://erikbern.com/2018/03/27/waiting-time-load-factor-and-queueing-theory.html">Waiting time, load factor, and queueing theory: why you need to cut your systems a bit of slack · Erik Bernhardsson</a></li>
+<li><a href="https://speakerdeck.com/nukemberg/queue-theory-101-node-dot-js-edition">Queue theory 101 (node.js edition) - Speaker Deck</a></li>
+<li><a href="https://web.mst.edu/_disabled/gosavia/queuing_formulas.pdf">Tutorial for Use of Basic Queueing Formulas</a></li>
+<li><a href="https://www.bohrium.com/en/sciencepedia/feynman/keyword/service_time_variance">Service Time Variance: The Hidden Cause of Queues and Delays</a></li>
 
 </ul>
 </details>
 
-**Discussion**: Commenters generally appreciated the model but emphasized that its assumptions are fragile in production. Several pointed out that real workloads often have heavy-tailed service times, non-Poisson arrivals, correlated bursts from retries or thundering herds, and seasonality such as daily cycles or major events. The main nuance was that the article is valuable as a mental model, but real capacity planning still needs empirical traffic data and peak-load resilience.
+**Discussion**: The discussion was broadly appreciative but focused on model realism. Commenters emphasized that Poisson arrivals and exponential service times are useful abstractions, while production systems often see correlated bursts from retries, thundering herds, major events, daily cycles, and heavy-tailed latency distributions.
 
-**Tags**: `#queueing-theory`, `#distributed-systems`, `#load-balancing`, `#capacity-planning`, `#performance`
+**Tags**: `#queueing-theory`, `#load-balancing`, `#systems-engineering`, `#reliability`, `#performance`
 
 ---
 
 <a id="item-3"></a>
-## [Norway restricts AI in primary schools.](https://www.reuters.com/technology/norway-imposes-near-ban-ai-elementary-school-2026-06-19/) ⭐️ 7.0/10
+## [Norway restricts AI in elementary schools.](https://www.reuters.com/technology/norway-imposes-near-ban-ai-elementary-school-2026-06-19/) ⭐️ 7.0/10
 
-Norway is moving to largely prohibit AI use for pupils in first through seventh grade, roughly ages 6 to 13. The government would allow students aged 14 to 16 to use AI tools more cautiously under teacher supervision. The policy marks a national-level attempt to draw age-based boundaries around generative AI in education. It could influence how other school systems balance digital literacy, child development, academic integrity, and teacher workload. The reported approach is not a total education-wide ban: younger children would generally be barred, while lower secondary students could adopt AI only with supervision. A major practical caveat is enforcement, especially when pupils can access AI through phones, home computers, or smart speakers outside the classroom.
+Norway is moving to largely prohibit AI use for pupils in grades one through seven, roughly ages 6 to 13. The policy would allow students aged 14 to 16 in lower secondary school to use AI tools cautiously under teacher supervision. The decision is a notable national attempt to define age-appropriate use of generative AI in schools. It could influence how other education systems balance digital literacy, child development, academic integrity, and teacher workload. The policy draws a line between younger children, who are expected to focus on foundational reading, writing, and comprehension skills, and older students, who may begin learning supervised AI use. A major caveat is enforcement: limiting AI use outside the classroom may be difficult and could require redesigned homework, assessments, and lesson plans.
 
 hackernews · Hacker News 热门 · Jun 19, 16:03 · [Discussion](https://news.ycombinator.com/item?id=48600093)
 
-**Background**: Generative AI tools can produce fluent text, answer questions, summarize material, and help draft assignments from simple prompts. In schools, this creates tension between teaching students how to use new tools and ensuring they still learn foundational skills such as reading, writing, arithmetic, and comprehension. Younger pupils are often seen as more vulnerable to outsourcing the learning process before they have built those foundations. The debate resembles earlier arguments over calculators, but AI systems can produce complete-looking work, making misuse harder to detect.
+**Background**: Generative AI tools can produce fluent text, summaries, answers, and learning materials from prompts, which makes them attractive but also risky in education. For young students, critics worry that relying on these tools too early may let them skip the cognitive work needed to build literacy and reasoning skills. Schools are also grappling with whether AI should be treated like a calculator, a writing assistant, a tutor, or a source that must be checked for errors and fabricated information.
 
-**Discussion**: Commenters were broadly sympathetic to the age-based restriction, arguing that children under 13 need to build core literacy skills before using generative AI. Several educators and technologists warned that AI has already harmed student outcomes and increased enforcement burdens, while others asked what classroom AI use for young children actually looks like in practice. A recurring analogy was calculators: useful after foundational skills are learned, but harmful if introduced too early.
+**Discussion**: The Hacker News discussion was broadly supportive of restricting AI for younger children, with commenters comparing it to withholding calculators until students understand arithmetic. Several participants argued that AI has harmed student outcomes and increased teacher burdens, while others questioned what classroom AI use for 6- to 13-year-olds actually looks like and warned that teachers may also generate flawed materials with AI.
 
-**Tags**: `#AI policy`, `#education technology`, `#generative AI`, `#AI governance`, `#digital learning`
+**Tags**: `#AI policy`, `#education technology`, `#generative AI`, `#child development`, `#regulation`
 
 ---
 
 <a id="item-4"></a>
-## [John Jumper joins Anthropic](https://twitter.com/JohnJumperSci/status/2068001285173834106) ⭐️ 7.0/10
+## [John Jumper is joining Anthropic.](https://twitter.com/JohnJumperSci/status/2068001285173834106) ⭐️ 7.0/10
 
-John Jumper, a co-lead of AlphaFold at Google DeepMind, said he is leaving Google DeepMind to join Anthropic. The announcement appears to come from a short post on X, with no detailed role or project description included. Jumper is closely associated with one of the most visible successes in AI for science, so his move may strengthen expectations that Anthropic will invest more in scientific applications of AI. It also adds to broader attention on talent movement among leading AI labs such as Google DeepMind and Anthropic. No public details are provided about Jumper’s new title, team, or whether he will work directly on AI-for-science projects at Anthropic. The strongest confirmed fact is the personnel move itself; broader conclusions about Anthropic’s strategy remain speculative.
+John Jumper, a Google DeepMind researcher and AlphaFold co-lead, announced that he is leaving Google DeepMind to join Anthropic. The announcement is a high-profile personnel move rather than a new technical release. Jumper is closely associated with AlphaFold, one of the most visible demonstrations of AI applied to science and medicine, so his move may strengthen Anthropic’s credibility in AI-for-science research. It also adds to broader attention on competition for top AI researchers among leading labs. The available post and discussion do not specify Jumper’s exact role, team, or research agenda at Anthropic. Demis Hassabis also posted a farewell, according to the community thread, emphasizing their nine-year collaboration and AlphaFold’s impact.
 
 hackernews · Hacker News 热门 · Jun 19, 17:53 · [Discussion](https://news.ycombinator.com/item?id=48601162)
 
-**Background**: AlphaFold is a Google DeepMind system for predicting protein structures with high accuracy, a long-standing challenge in biology. Google DeepMind says the AlphaFold Database provides access to more than 200 million predicted protein structures for researchers. More recent AlphaFold tooling can also model broader biomolecular structures involving proteins, DNA, RNA, ligands, ions, and chemical modifications.
+**Background**: AlphaFold is Google DeepMind’s protein-structure prediction system, designed to predict protein structures with high accuracy. DeepMind’s AlphaFold first drew major attention after placing first in the overall rankings at CASP13 in 2018, a benchmark competition for protein-structure prediction methods. Google DeepMind says the AlphaFold Database contains more than 200 million protein-structure predictions to support research.
 
 <details><summary>References</summary>
 <ul>
 <li><a href="https://deepmind.google/science/alphafold/">AlphaFold — Google DeepMind</a></li>
-<li><a href="https://alphafoldserver.com/">AlphaFold Server</a></li>
 <li><a href="https://en.wikipedia.org/wiki/AlphaFold">AlphaFold - Wikipedia</a></li>
 
 </ul>
 </details>
 
-**Discussion**: The discussion is mixed and mostly light on technical substance: some commenters joke about Jumper’s name, while others cite Demis Hassabis’s farewell message and speculate about senior attrition at Google. A few commenters question whether the move is important without more information about his new role.
+**Discussion**: The discussion is mixed and mostly speculative: some commenters see the move as a possible sign of internal issues or senior attrition at Google, while others treat it humorously or question its importance. One notable comment points to Demis Hassabis’s farewell post as confirmation of the significance of Jumper’s work at DeepMind.
 
-**Tags**: `#AI`, `#Anthropic`, `#DeepMind`, `#AI for Science`, `#Industry Moves`
+**Tags**: `#AI`, `#Anthropic`, `#DeepMind`, `#AI-for-science`, `#industry-moves`
 
 ---
 
 <a id="item-5"></a>
-## [Spring Boot 4.1 adds gRPC, SSRF protection, and Kotlin 2.3](https://www.infoq.cn/article/OoTNa5QuBzZej3ighRjz?utm_source=rss&utm_medium=article) ⭐️ 7.0/10
+## [Court records should be free.](https://www.eff.org/deeplinks/2026/06/court-records-should-be-free) ⭐️ 7.0/10
 
-Broadcom released Spring Boot 4.1 on June 10, 2026, adding gRPC auto-configuration, HTTP-client SSRF mitigation features, and support for Kotlin 2.3. The release also includes related platform improvements such as lazy datasource connections and asynchronous capabilities, according to the available report. Spring Boot is widely used in the Java ecosystem, so built-in support for gRPC and SSRF mitigation can reduce custom integration and security work for many enterprise teams. Kotlin 2.3 support also matters for teams using Spring Boot with Kotlin as that language continues to be adopted for JVM services. Spring Boot documentation shows gRPC support includes auto-configuration for security-related beans such as GrpcSecurity and SecurityGrpcExceptionHandler, and gRPC services can typically be secured with @PreAuthorize annotations or an AuthenticationProcessInterceptor bean. The SSRF feature is described as HTTP-client mitigation, so it should be understood as a framework-level aid rather than a replacement for broader input validation, response handling, and network controls.
+The EFF published an argument that public court records should not be locked behind PACER and other pay-per-page access systems. The article frames court-record access as a public-interest infrastructure issue affecting transparency, journalism, research, and civic technology. Court records are essential for understanding how the justice system works, but fees and fragmented systems can make meaningful access expensive or impractical. Free access would benefit litigants, journalists, researchers, watchdog groups, and developers building legal-data tools. PACER is the federal electronic access system for U.S. court records, and users must register before viewing federal case information. The debate is not only about the size of the fee, but also about whether public legal records should be funded as shared civic infrastructure rather than through per-document charges.
 
-rss · InfoQ 中文 · Jun 19, 10:00
+hackernews · Hacker News 热门 · Jun 19, 17:34 · [Discussion](https://news.ycombinator.com/item?id=48600946)
 
-**Background**: Spring Boot is a Java framework that simplifies building production-ready Spring applications through auto-configuration and opinionated defaults. gRPC is a remote procedure call framework often used for efficient service-to-service communication, especially in microservice systems. SSRF, or server-side request forgery, is a vulnerability where an attacker tricks a server into making requests to unintended locations, including internal network resources. Kotlin is a JVM-compatible programming language that is commonly used alongside Java in Spring applications.
+**Background**: PACER stands for Public Access to Court Electronic Records and provides access to records from U.S. federal district courts, courts of appeals, and other federal courts. According to the official PACER site, case information is available online around the clock, but each court maintains its own case information. Open legal-data advocates have long criticized fee-based access because court records are public documents produced by a publicly funded judiciary.
 
 <details><summary>References</summary>
 <ul>
-<li><a href="https://www.infoq.com/news/2026/06/spring-boot-4-1/">Spring Boot 4.1 Adds gRPC Auto-Configuration, SSRF Mitigation ... - InfoQ</a></li>
-<li><a href="https://docs.spring.io/spring-boot/reference/io/grpc.html">gRPC :: Spring Boot</a></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/SSRF">Server Side Request Forgery (SSRF) - Security | MDN</a></li>
+<li><a href="https://pacer.uscourts.gov/">Public Access to Court Electronic Records | PACER : Federal Court ...</a></li>
+<li><a href="https://pacer.uscourts.gov/find-case">Find a Case | PACER : Federal Court Records</a></li>
+<li><a href="https://en.wikipedia.org/wiki/PACER_(law)">PACER (law) - Wikipedia</a></li>
+
+</ul>
+</details>
+
+**Discussion**: The Hacker News discussion was broadly sympathetic to free access but included practical debate over funding tradeoffs. Commenters compared PACER with Israeli and state-level systems, noted that some state court records can be far more expensive, and praised CourtListener and RECAP for redistributing purchased PACER documents. Some participants argued that fees function as a barrier to exercising legal rights, while others framed the issue as a common public-policy question of who pays for public infrastructure.
+
+**Tags**: `#legal-tech`, `#open-data`, `#public-policy`, `#civic-tech`, `#PACER`
+
+---
+
+<a id="item-6"></a>
+## [Spring Boot 4.1 expands gRPC and security support.](https://www.infoq.cn/article/OoTNa5QuBzZej3ighRjz?utm_source=rss&utm_medium=article) ⭐️ 7.0/10
+
+Broadcom released Spring Boot 4.1 on June 10, 2026, adding Spring gRPC auto-configuration, HTTP-client SSRF mitigation features, and support for Kotlin 2.3. The release also includes improvements such as lazy datasource connections and async context propagation for @Async methods. Spring Boot is widely used for Java backend services, so built-in gRPC setup and SSRF mitigation can reduce boilerplate and improve default security for many enterprise applications. The Kotlin 2.3 update also keeps Spring Boot aligned with teams building JVM services in Kotlin. The gRPC support reportedly covers both server and client applications, with standalone Netty and Servlet HTTP/2 transports, and introduces @GrpcAdvice for centralized exception handling. The SSRF work focuses on HTTP clients, which is important because outbound requests based on untrusted input are a common source of server-side request forgery risk.
+
+rss · InfoQ 中文 · Jun 19, 10:00
+
+**Background**: Spring Boot is a framework that simplifies building production Java applications by providing auto-configuration, starters, and opinionated defaults. gRPC is a high-performance remote procedure call system often used for service-to-service communication, and auto-configuration can make it easier to expose or consume gRPC services in Spring applications. SSRF, or server-side request forgery, is a vulnerability where an attacker tricks a server into making unintended network requests, often to internal systems or metadata services.
+
+<details><summary>References</summary>
+<ul>
+<li><a href="https://www.infoq.com/news/2026/06/spring-boot-4-1/">Spring Boot 4.1 Adds gRPC Auto-Configuration, SSRF Mitigation, and Kotlin 2.3 Support - InfoQ</a></li>
+<li><a href="https://techgig.com/news/software-devops/spring-boot-4-1-adds-grpc-auto-configuration-ssrf-mitigation/131734613">Spring Boot 4.1 Adds gRPC Auto-Configuration, SSRF Mitigation, TechGig</a></li>
+<li><a href="https://github.com/spring-projects/spring-grpc">GitHub - spring-projects/spring-grpc · GitHub</a></li>
 
 </ul>
 </details>
@@ -133,42 +154,44 @@ rss · InfoQ 中文 · Jun 19, 10:00
 
 ---
 
-<a id="item-6"></a>
-## [Satellite data shows widespread GPS tampering.](https://www.space.com/space-exploration/satellites/its-quite-a-bit-more-than-we-expected-satellite-reveals-immense-scale-of-gps-signal-tampering) ⭐️ 7.0/10
+<a id="item-7"></a>
+## [Satellites expose widespread GPS tampering.](https://www.space.com/space-exploration/satellites/its-quite-a-bit-more-than-we-expected-satellite-reveals-immense-scale-of-gps-signal-tampering) ⭐️ 7.0/10
 
-A satellite-based analysis reported by Space.com indicates that GPS/GNSS signal tampering is occurring at a much larger scale than researchers or observers previously expected. The finding suggests that interference is not limited to isolated hotspots but may be more widespread across regions where navigation signals are vulnerable. GNSS underpins aviation, maritime navigation, logistics, emergency response, and military operations, so large-scale tampering can create safety and security risks far beyond consumer mapping apps. Broader detection from satellites could improve monitoring of interference that is otherwise difficult to observe consistently from the ground. GNSS tampering can include jamming, which overwhelms legitimate satellite signals with radio-frequency interference, and spoofing, which sends fake signals that can mislead a receiver about its position or time. Prior research on low Earth orbit detection has shown that space-based observation can provide wide coverage and help localize terrestrial GNSS interference sources.
+A Space.com report says satellite-based analysis found GPS signal tampering at a scale larger than researchers expected. The finding points to widespread GNSS interference rather than isolated local incidents. GPS and broader GNSS services underpin aviation, shipping, defense, telecom timing, and other navigation-dependent infrastructure. Large-scale jamming or spoofing raises operational safety risks and increases pressure to build more resilient positioning, navigation, and timing systems. GNSS jamming typically overpowers legitimate satellite signals, while spoofing can mislead receivers by making false signals appear authentic. The notable technical point is that low Earth orbit satellite receivers can help detect, classify, and geolocate terrestrial interference sources over broad areas.
 
 rss · Hacker News 热门 · Jun 20, 04:07
 
-**Background**: GPS is one member of the broader class of global navigation satellite systems, or GNSS, which use satellites to provide positioning, navigation, and timing services to users on land, at sea, and in the air. These signals are relatively weak by the time they reach Earth, which makes them susceptible to interference. Jamming generally denies service by adding strong noise on GNSS frequencies, while spoofing attempts to make a receiver accept false navigation data as real.
+**Background**: GNSS is the umbrella term for satellite navigation systems such as GPS, and receivers depend on weak radio signals from satellites to calculate position and time. Because those signals are weak by the time they reach Earth, relatively nearby radio-frequency interference can degrade or block them. Jamming prevents receivers from locking onto valid signals, while spoofing attempts to make receivers compute a false position or time. Space-based monitoring is useful because satellites in low Earth orbit can observe radio-frequency activity across wide regions and revisit interference hotspots.
 
 <details><summary>References</summary>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Satellite_navigation">Satellite navigation - Wikipedia</a></li>
-<li><a href="https://wavedone.com/gnss-spoofing-vs-jamming-technical-differences-and-detection-methods/">GNSS Spoofing vs Jamming : Technical Differences and... - wavedone</a></li>
-<li><a href="https://radionavlab.ae.utexas.edu/wp-content/uploads/murrian_ion_gnss_2019.pdf">Characterizing Terrestrial GNSS Interference from Low Earth Orbit</a></li>
+<li><a href="https://www.faa.gov/about/office_org/headquarters_offices/avs/offices/afx/afs/afs400/afs410/GNSS/GPS_GNSS_Interference_Resource_Guide.pdf">GPS and GNSS Interference Resource Guide</a></li>
+<li><a href="https://skybrary.aero/articles/gnss-jamming-and-spoofing">GNSS Jamming and Spoofing - SKYbrary Aviation Safety</a></li>
+<li><a href="https://insidegnss.com/pinpointing-gnss-interference-from-low-earth-orbit/">Pinpointing GNSS Interference from Low Earth Orbit</a></li>
 
 </ul>
 </details>
 
-**Tags**: `#GPS`, `#GNSS`, `#cybersecurity`, `#satellites`, `#infrastructure`
+**Discussion**: The Hacker News metadata shows moderate interest, with 61 points and 13 comments. The actual comment text was not provided, so specific community arguments or disagreements cannot be assessed from the supplied material.
+
+**Tags**: `#GNSS`, `#cybersecurity`, `#satellites`, `#critical-infrastructure`, `#signal-jamming`
 
 ---
 
-<a id="item-7"></a>
-## [AUR attacks expose package trust risks](https://lwn.net/SubscriberLink/1077619/f7b07c5489fdd43a/) ⭐️ 7.0/10
+<a id="item-8"></a>
+## [AUR attacks expose Linux package trust risks.](https://lwn.net/SubscriberLink/1077619/f7b07c5489fdd43a/) ⭐️ 7.0/10
 
-LWN examined recent malicious activity targeting the Arch User Repository, focusing on how attackers abused community-maintained package metadata and build scripts. Separate security reports say the campaign, dubbed Atomic Arch, involved at least 1,500 malicious AUR packages. The incident highlights how user-contributed package ecosystems can become software supply-chain attack surfaces, especially when builds execute scripts from semi-trusted sources. Arch Linux users, AUR maintainers, and developers who install niche packages are most directly affected, but the lesson applies broadly to npm, Python, and other community registries. AUR packages are typically PKGBUILD recipes rather than official prebuilt packages, so users or helpers may run build instructions that fetch source code and dependencies. Reports describe injected build commands that pulled malicious dependencies, including rogue npm packages such as atomic-lockfile, which makes manual review and provenance checking important.
+LWN published an analysis of recent malicious-package attacks against the Arch User Repository, including the reported “Atomic Arch” campaign. Public reports cited hundreds of hijacked AUR packages and, in one account, at least 1,500 malicious packages published to AUR. The incident highlights how community package repositories can become supply-chain attack paths when users build and install code from lightly curated sources. It matters to Arch Linux users, package maintainers, and the wider open-source ecosystem because package metadata and build scripts can be abused to deliver credential stealers or other malware. AUR packages are primarily PKGBUILD descriptions rather than prebuilt binaries, but those build instructions can still execute attacker-controlled commands during packaging or installation. The reported campaigns involved malicious build scripts and package hijacking, so mitigations include reviewing PKGBUILDs, avoiding blind AUR-helper upgrades, and monitoring maintainer changes.
 
 rss · Hacker News 热门 · Jun 19, 16:59
 
-**Background**: The Arch User Repository is a community-driven repository for Arch Linux users that contains package descriptions called PKGBUILDs. A PKGBUILD tells makepkg how to download, build, and package software so it can be installed with pacman. Because AUR content is community-maintained rather than part of Arch’s official repositories, users are expected to inspect package files and understand the trust boundary before building them.
+**Background**: The Arch User Repository is a community-driven repository for Arch Linux users. According to the ArchWiki, it contains package descriptions called PKGBUILDs, which users can build with makepkg and then install with pacman. This model makes it easy for software to reach users before it enters official repositories, but it also means trust depends heavily on maintainers, user review, and repository-side controls.
 
 <details><summary>References</summary>
 <ul>
 <li><a href="https://wiki.archlinux.org/title/Arch_User_Repository">Arch User Repository - ArchWiki</a></li>
-<li><a href="https://wiki.archlinux.org/title/PKGBUILD">PKGBUILD - ArchWiki</a></li>
 <li><a href="https://www.securityweek.com/atomic-arch-supply-chain-attack-hits-1500-aur-packages/">Atomic Arch Supply Chain Attack Hits 1,500 AUR Packages - SecurityWeek</a></li>
+<li><a href="https://www.stepsecurity.io/blog/400-aur-packages-hijacked-atomic-arch-campaign">400+ AUR Packages Hijacked: What the “Atomic Arch” Campaign Means for Supply-Chain Security - StepSecurity</a></li>
 
 </ul>
 </details>
@@ -177,103 +200,45 @@ rss · Hacker News 热门 · Jun 19, 16:59
 
 ---
 
-<a id="item-8"></a>
-## [GLM-5.2 tops open-weights AI index.](https://www.reddit.com/r/LocalLLaMA/comments/1u9zqlx/glm52_is_the_new_leading_open_weights_model_on/) ⭐️ 7.0/10
-
-GLM-5.2 is reported to be the new highest-ranked open-weights model on the Artificial Analysis Intelligence Index. The model is described by Modular as Zhipu AI’s newest open-weights model, optimized for coding, agentic workloads, and sustained ultra-long-horizon execution. A top ranking on a recognized benchmark can influence which models developers choose for local inference, enterprise deployment, and open-weights experimentation. It also signals that open-weights models are continuing to narrow the perceived gap with leading closed frontier systems. Artificial Analysis says its Intelligence Index v4.0 incorporates 10 evaluations, including GDPval-AA, Terminal-Bench Hard, SciCode, IFBench, Humanity’s Last Exam, and GPQA Diamond. Separate coverage describes GLM-5.2 as a large Mixture-of-Experts model with a 1-million-token context window, but those implementation claims should be checked against official model documentation before deployment decisions.
-
-reddit · r/LocalLLaMA · /u/pscoutou · Jun 19, 11:43
-
-**Background**: An open-weights model is an AI model whose trained parameters are made available for others to download, run, inspect, or adapt, although licensing terms can still vary. This differs from many closed commercial models, where users access the model only through an API and cannot host or modify the weights themselves. Benchmark indexes such as the Artificial Analysis Intelligence Index aggregate multiple evaluations to compare model capability across tasks, but they are not a substitute for testing a model on a specific production workload.
-
-<details><summary>References</summary>
-<ul>
-<li><a href="https://www.modular.com/models/glm-5-2">GLM - 5 . 2 | Modular</a></li>
-<li><a href="https://artificialanalysis.ai/models">Comparison of AI Models across Intelligence , Performance, and Price</a></li>
-<li><a href="https://www.ai21.com/glossary/foundational-llm/open-weights-model/">What is an Open - Weights Model ? | AI 21</a></li>
-
-</ul>
-</details>
-
-**Tags**: `#AI`, `#open-weights`, `#LLM`, `#benchmarks`, `#LocalLLaMA`
-
----
-
 <a id="item-9"></a>
-## [QUEST-35B Opens Deep Research Training](https://www.reddit.com/r/LocalLLaMA/comments/1u9w6my/researchers_trained_a_deep_research_agent_with_32/) ⭐️ 7.0/10
+## [A tiny torch.compile reimplementation explains operator fusion.](https://www.reddit.com/r/MachineLearning/comments/1ua2hwj/how_does_torchcompile_achieve_massive_speedups/) ⭐️ 6.0/10
 
-Ohio State University’s NLP group released QUEST-35B, an open-source Deep Research agent trained with roughly 32 H100 GPUs and about 8,000 synthetic samples. The release includes code, model weights, datasets, and the training recipe. The release is notable because it suggests that competitive research-agent behavior may be achievable with far less compute and data than many frontier systems appear to require. If independently validated, it could help researchers and local-LLM developers reproduce, inspect, and improve Deep Research-style agents outside closed platforms. The project page describes QUEST as an open family of 2B to 35B deep research agents trained on fully synthetic rubric-tree tasks with structured context management. The GitHub summary says QUEST-35B is evaluated against proprietary and open Deep Research agents across eight benchmarks covering areas such as fact seeking and citation grounding, but the reported benchmark claims still need external replication.
+A Reddit post shares a 500-line Python educational project, tinytorchcompile, that reimplements core torch.compile ideas to show how operator fusion can produce large speedups. The project is presented as a notebook and code repository rather than a new PyTorch feature or benchmark paper. The post is useful because many practitioners use torch.compile as a near drop-in speedup tool without understanding why it works. By reducing the idea to a small implementation, it helps explain why compiled graph execution can outperform eager NumPy- or PyTorch-style execution even when individual library operators are already highly optimized. The central mechanism highlighted is operator fusion: combining multiple tensor operations into fewer generated kernels to reduce intermediate memory traffic and dispatch overhead. The project should be read as an educational simplification, not as a complete reproduction of PyTorch’s production compiler stack or a guarantee of speedups for every workload.
 
-reddit · r/LocalLLaMA · /u/BuildwithVignesh · Jun 19, 08:20
+reddit · r/MachineLearning · /u/Other-Eye-8152 · Jun 19, 13:47
 
-**Background**: A Deep Research agent is an AI system designed to perform multi-step information gathering, source analysis, and report generation rather than simply answering a single prompt. Such systems often combine long-context reasoning, search or browsing, citation tracking, and iterative summarization. Synthetic data means training examples generated artificially rather than collected directly from human-written task logs, which can reduce cost but may also introduce distribution gaps. H100 refers to NVIDIA’s high-end data-center GPU commonly used for training and serving large AI models.
+**Background**: PyTorch traditionally emphasizes eager execution, where operations run immediately as Python code reaches them, which makes debugging and experimentation straightforward. Graph execution instead first captures a sequence of tensor operations as a graph, then compiles or transforms that graph before running it. The official PyTorch documentation describes torch.compile as a way to speed up PyTorch programs by JIT-compiling code into optimized kernels with minimal code changes. Operator fusion is one common compiler optimization in this setting because many machine-learning workloads are limited not only by arithmetic throughput but also by kernel launch overhead and memory bandwidth.
 
 <details><summary>References</summary>
 <ul>
-<li><a href="https://osu-nlp-group.github.io/QUEST/">Training Frontier Deep Research Agents with Fully Synthetic Tasks</a></li>
-<li><a href="https://github.com/OSU-NLP-Group/QUEST">OSU-NLP-Group/QUEST: "QUEST: Training Frontier Deep ... - GitHub</a></li>
-<li><a href="https://openai.com/index/introducing-deep-research/">Introducing deep research | OpenAI</a></li>
+<li><a href="https://docs.pytorch.org/tutorials/intermediate/torch_compile_tutorial.html">Introduction to torch.compile — PyTorch Tutorials 2.12.0 ...</a></li>
+<li><a href="https://pytorch.org/blog/optimizing-production-pytorch-performance-with-graph-transformations/">Optimizing Production PyTorch Models’ Performance with Graph ... Understanding Pytorch Eager and Graph Mode - Backtrace Eager Execution vs PyTorch: A Comprehensive Comparison 391. Graph Execution VS Eager Execution - My Blog Pytorch 2.x Eager mode vs Graph mode How does eager execution differ from graph execution? | LabEx</a></li>
 
 </ul>
 </details>
 
-**Tags**: `#open-source-ai`, `#llm-agents`, `#deep-research`, `#synthetic-data`, `#local-llms`
+**Tags**: `#PyTorch`, `#torch.compile`, `#operator-fusion`, `#machine-learning-systems`, `#performance-optimization`
 
 ---
 
 <a id="item-10"></a>
-## [Kent Beck reframes engineering work.](https://newsletter.kentbeck.com/p/hey-n00b-we-didnt-hire-you-to-complete) ⭐️ 6.5/10
+## [Headroom compresses LLM context.](https://github.com/chopratejas/headroom) ⭐️ 6.0/10
 
-Kent Beck published an essay arguing that software engineers are not hired simply to complete assigned tasks, but to exercise judgment, take ownership, and help deliver meaningful outcomes. The essay challenges a common productivity mindset that treats engineering work as a queue of tickets, and it speaks directly to how teams define value, autonomy, and responsibility. It is especially relevant to engineers, managers, and organizations trying to improve software delivery without reducing people to task executors. The Hacker News submission received 163 points and 81 comments, indicating substantial interest in the topic among software practitioners. The core point is cultural rather than technical: engineers should understand goals, question assumptions, and contribute to outcomes instead of blindly optimizing for task closure.
+The GitHub repository chopratejas/headroom gained 102 stars in the past 24 hours for a Python tool that compresses logs, tool outputs, files, and RAG chunks before they are sent to LLMs. The project presents itself as a library, proxy, and MCP server, claiming 60–95% token reduction while preserving answer quality. Token usage directly affects LLM cost, latency, and context-window pressure, so compression tools can be valuable for developers building agents, log-analysis workflows, and RAG systems. If the quality claims hold up in real workloads, Headroom could help teams pass more relevant context to models without expanding budgets or hitting context limits as quickly. The available project description emphasizes compression of high-volume inputs such as logs and tool outputs, but the provided material does not include rigorous benchmark methodology, datasets, or independent evaluations. Its MCP server positioning is notable because it could let AI clients use compression as a standardized context-management layer rather than only as an application-specific library.
 
-rss · Hacker News 热门 · Jun 20, 00:11
+ossinsight · chopratejas · Jun 20, 08:20
 
-**Background**: In many software teams, work is organized through tickets, backlogs, or assigned tasks that describe what should be built or fixed. This can make progress easy to track, but it can also encourage people to focus on finishing visible units of work rather than asking whether the work solves the right problem. The essay fits into a broader engineering-culture debate about whether developers should be treated as implementers of instructions or as professionals responsible for product and technical outcomes.
-
-**Tags**: `#software-engineering`, `#engineering-culture`, `#career-development`, `#productivity`, `#management`
-
----
-
-<a id="item-11"></a>
-## [Local AI agents get a June 2026 megathread.](https://www.reddit.com/r/LocalLLaMA/comments/1uaebfe/best_local_agents_jun_2026/) ⭐️ 6.0/10
-
-A Reddit r/LocalLLaMA megathread opened a June 2026 discussion on the best local AI agents, asking users to share what they run, why they use it, and how they evaluate it. The post also tries to clarify terminology by distinguishing an “agent” from workflow tools and questioning whether “harness” is a useful separate term. Local agents are becoming a practical area for users who want autonomous or semi-autonomous AI tools while keeping models and execution on hardware they control. The thread could help practitioners compare fast-changing tools and establish clearer vocabulary in a space where benchmarks, demos, and marketing claims are often unreliable. The thread requires agents to use open-weight models and run locally, including on user-controlled hardware or VPCs. It recommends discussing open-source agent software but allows tools such as Claude Code or Codex as reference points because many users pair mature coding-agent interfaces with local models.
-
-reddit · r/LocalLLaMA · /u/rm-rf-rm · Jun 19, 21:29
-
-**Background**: A local LLM is a language model that runs on a user-controlled machine or infrastructure rather than relying entirely on a hosted API. A local AI agent usually adds software around the model so it can plan, call tools, edit files, run commands, or take other actions with some degree of autonomy. The term “harness” is often used to describe the surrounding structure that controls how an LLM reasons and acts, but the terminology is still unsettled. Workflow tools such as n8n are more predefined automation systems, while agent tools aim to choose steps dynamically based on user input and context.
+**Background**: LLMs process text as tokens, and larger prompts generally cost more, take longer, and consume more of the model’s finite context window. RAG, or retrieval-augmented generation, is a common pattern where an application retrieves relevant document chunks and includes them in the prompt so the model can answer using external knowledge. MCP, or Model Context Protocol, is an open protocol introduced by Anthropic to standardize how AI applications connect to tools, data sources, and servers.
 
 <details><summary>References</summary>
 <ul>
-<li><a href="https://fazm.ai/alternative/local-llm-vs-local-ai-agent-macos">Local LLM vs Local AI Agent on macOS: What Sits Between Ollama...</a></li>
-<li><a href="https://medium.com/intuitively-and-exhaustively-explained/agent-harnesses-intuitively-and-exhaustively-explained-52aa6b4e7ebd">Agent Harnesses — Intuitively and Exhaustively Explained | Medium</a></li>
-<li><a href="https://n8n.io/">AI Workflow Automation Platform - n 8 n</a></li>
+<li><a href="https://www.everydev.ai/tools/headroom">Headroom - LLM Context Compression Library | EveryDev.ai</a></li>
+<li><a href="https://cloud.google.com/use-cases/retrieval-augmented-generation">What is Retrieval-Augmented Generation (RAG)? | Google Cloud</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Model_Context_Protocol">Model Context Protocol - Wikipedia</a></li>
 
 </ul>
 </details>
 
-**Tags**: `#local-llms`, `#ai-agents`, `#tooling`, `#LocalLLaMA`, `#open-source-ai`
-
----
-
-<a id="item-12"></a>
-## [Local agents gain self-hosted web access.](https://www.reddit.com/r/LocalLLaMA/comments/1uam3iv/giving_a_local_agent_web_access_without_paid/) ⭐️ 6.0/10
-
-A LocalLLaMA post describes a practical setup that gives a local-first LLM agent two tools, web_search and web_extract, using self-hosted SearXNG for search and Scrapling plus Trafilatura for page extraction. The goal is to avoid paid services such as Tavily, Serper, and Firecrawl while still letting the agent search the web and read pages. This matters for users who want local LLM agents with fewer vendor dependencies, no paid API keys, and more control over search and extraction infrastructure. It also reflects a broader pattern in local AI tooling: combining open-source components to approximate cloud-agent capabilities while accepting tradeoffs in reliability, speed, and maintenance. The search layer calls SearXNG’s JSON endpoint and normalizes results into title, URL, and snippet, while the extraction layer first tries Scrapling’s non-browser fetcher and falls back to a headless stealth browser path when pages are blocked or empty. The author adds safeguards and fallbacks including PDF handling with pypdf, CAPTCHA or security-page detection, SSRF checks against private/internal ranges, Trafilatura Markdown conversion, visible-text fallback, and optional summarization for large pages.
-
-reddit · r/LocalLLaMA · /u/luke_pacman · Jun 20, 03:36
-
-**Background**: SearXNG is a self-hostable metasearch engine, meaning it aggregates results from upstream search engines rather than maintaining its own full web index. For LLM agents, search results are usually only the first step: the agent gets candidate URLs and metadata, then needs a separate extraction step to read the actual page content. Page extraction is harder than simple search because websites may use JavaScript rendering, bot detection, CAPTCHAs, PDFs, redirects, or pages whose raw HTML is noisy for language models. Converting cleaned content into Markdown can make it easier for an LLM to consume links, tables, and readable text without raw HTML clutter.
-
-<details><summary>References</summary>
-<ul>
-<li><a href="https://docs.openclaw.ai/tools/searxng-search">SearXNG web search -- self - hosted , key-free meta - search provider</a></li>
-<li><a href="https://coderscompass.org/articles/searxng-self-hosted-private-search-aggregator/">SearXNG : Self - Hosted Private Search ... | Coders' Compass Publishing</a></li>
-<li><a href="https://medium.com/@matthieumordrel/the-various-ways-to-connect-an-llm-to-the-internet-6438d92faed9">The various ways to connect an LLM to the internet | by Matthieu Mordrel</a></li>
-
-</ul>
-</details>
-
-**Tags**: `#local-llm`, `#agents`, `#web-search`, `#self-hosting`, `#open-source`
+**Tags**: `#LLM tooling`, `#token optimization`, `#RAG`, `#Python`, `#MCP`
 
 ---
