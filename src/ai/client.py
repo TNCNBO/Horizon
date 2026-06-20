@@ -177,6 +177,12 @@ class OpenAIClient(AIClient):
     # Providers that don't support response_format
     _NO_RESPONSE_FORMAT = {"minimax"}
 
+    # Models that don't support response_format (e.g. reasoning models)
+    _NO_RESPONSE_FORMAT_MODELS = ("o1", "o3", "o4", "gpt-5")
+
+    # Models that require max_completion_tokens instead of max_tokens
+    _MODELS_REQUIRING_MAX_COMPLETION_TOKENS = ("o1", "o3", "o4", "gpt-5")
+
     # Providers that need temperature clamped to (0, 1]
     _TEMP_CLAMP = {"minimax"}
 
@@ -204,6 +210,16 @@ class OpenAIClient(AIClient):
         # Some newer models (e.g. Claude Opus 4.7 on Bedrock Converse) reject
         # `temperature`. We learn this on first 400 and stop sending it.
         self._supports_temperature = True
+        # gpt-5 series requires max_completion_tokens instead of max_tokens
+        self._use_max_completion_tokens = any(
+            config.model.startswith(prefix)
+            for prefix in self._MODELS_REQUIRING_MAX_COMPLETION_TOKENS
+        )
+        # gpt-5 series may not support response_format json_object
+        self._no_response_format = any(
+            config.model.startswith(prefix)
+            for prefix in self._NO_RESPONSE_FORMAT_MODELS
+        )
 
     async def complete(
         self,
@@ -239,7 +255,18 @@ class OpenAIClient(AIClient):
                 include_temperature=self._supports_temperature,
             )
         except Exception as exc:
-            if self._supports_temperature and self._is_temperature_unsupported(
+            # Try fallback: max_completion_tokens -> max_tokens
+            token_fallback = self._token_fallback_mode(str(exc))
+            if token_fallback is not None:
+                self._use_max_completion_tokens = token_fallback
+                response = await self._do_request(
+                    system=system,
+                    user=user,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                    include_temperature=self._supports_temperature,
+                )
+            elif self._supports_temperature and self._is_temperature_unsupported(
                 str(exc)
             ):
                 self._supports_temperature = False
@@ -276,11 +303,16 @@ class OpenAIClient(AIClient):
                 {"role": "system", "content": system},
                 {"role": "user", "content": user},
             ],
-            "max_tokens": max_tokens,
         }
+        # gpt-5 series and o-series require max_completion_tokens
+        if self._use_max_completion_tokens:
+            request_kwargs["max_completion_tokens"] = max_tokens
+        else:
+            request_kwargs["max_tokens"] = max_tokens
         if include_temperature:
             request_kwargs["temperature"] = temperature
-        if self.provider not in self._NO_RESPONSE_FORMAT:
+        if (self.provider not in self._NO_RESPONSE_FORMAT
+                and not self._no_response_format):
             request_kwargs["response_format"] = {"type": "json_object"}
         return await self.client.chat.completions.create(**request_kwargs)
 
@@ -292,6 +324,16 @@ class OpenAIClient(AIClient):
             or "not support" in lowered
             or "unsupported" in lowered
         )
+
+    @staticmethod
+    def _token_fallback_mode(message: str):
+        """Detect if the API error is about max_tokens vs max_completion_tokens."""
+        lowered = message.lower()
+        if "max_completion_tokens" in lowered and "max_tokens" in lowered:
+            return True
+        if "max_tokens" in lowered and "max_completion_tokens" not in lowered:
+            return False
+        return None
 
 
 class AzureOpenAIClient(AIClient):
