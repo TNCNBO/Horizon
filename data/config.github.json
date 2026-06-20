@@ -145,9 +145,21 @@
     "enabled": true,
     "url_env": "FEISHU_WEBHOOK_URL",
     "request_body": {
-      "msg_type": "text",
-      "content": {
-        "text": "#{summary}"
+      "msg_type": "interactive",
+      "card": {
+        "header": {
+          "title": {
+            "tag": "plain_text",
+            "content": "Horizon #{date} 日报"
+          },
+          "template": "blue"
+        },
+        "elements": [
+          {
+            "tag": "markdown",
+            "content": "#{summary}"
+          }
+        ]
       }
     },
     "delivery": "summary",
