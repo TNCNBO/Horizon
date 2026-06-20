@@ -84,7 +84,7 @@
       }
     ],
     "reddit": {
-      "enabled": true,
+      "enabled": false,
       "subreddits": [
         {
           "subreddit": "MachineLearning",
@@ -146,10 +146,8 @@
     "delivery": "summary",
     "overview_position": "first",
     "platform": "feishu",
-    "layout": "collapsible",
+    "layout": "markdown",
     "fallback_layout": "markdown",
-    "languages": ["zh"],
-    "request_body": {},
-    "headers": ""
+    "languages": null
   }
 }
